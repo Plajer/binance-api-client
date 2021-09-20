@@ -11,6 +11,10 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
+import com.binance.api.client.domain.savings.FlexibleSaving;
+import com.binance.api.client.domain.savings.FlexibleSavingProduct;
+import com.binance.api.client.domain.savings.FlexibleSavingReedemType;
+import com.binance.api.client.domain.savings.FlexibleSavingResponse;
 
 import java.util.List;
 
@@ -257,7 +261,7 @@ public interface BinanceApiRestClient {
    * @return a list of trades
    */
   List<Trade> getMyTrades(String symbol);
-  
+
   List<Trade> getMyTrades(String symbol, Long fromId);
 
   /**
@@ -329,4 +333,15 @@ public interface BinanceApiRestClient {
    * @param listenKey listen key that identifies a data stream
    */
   void closeUserDataStream(String listenKey);
+
+  // Savings endpoints
+
+  List<FlexibleSavingProduct> getAllFlexibleSavingsList();
+
+  FlexibleSavingResponse purchaseFlexibleSaving(String productId, String amount);
+
+  Void redeemFlexibleSaving(String productId, String amount, FlexibleSavingReedemType type);
+
+  FlexibleSaving getOwnedFlexibleSaving(String asset);
+
 }

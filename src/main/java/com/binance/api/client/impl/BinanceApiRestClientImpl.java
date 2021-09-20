@@ -8,6 +8,10 @@ import com.binance.api.client.domain.account.request.*;
 import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.market.*;
+import com.binance.api.client.domain.savings.FlexibleSaving;
+import com.binance.api.client.domain.savings.FlexibleSavingProduct;
+import com.binance.api.client.domain.savings.FlexibleSavingReedemType;
+import com.binance.api.client.domain.savings.FlexibleSavingResponse;
 import retrofit2.Call;
 
 import java.util.List;
@@ -278,4 +282,27 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
 	public void closeUserDataStream(String listenKey) {
 		executeSync(binanceApiService.closeAliveUserDataStream(listenKey));
 	}
+
+    // Savings endpoints
+
+    @Override
+    public List<FlexibleSavingProduct> getAllFlexibleSavingsList() {
+        return executeSync(binanceApiService.getAllFlexibleSavingsList(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
+    @Override
+    public FlexibleSavingResponse purchaseFlexibleSaving(String productId, String amount) {
+        return executeSync(binanceApiService.purchaseFlexibleSaving(productId, amount, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
+    @Override
+    public Void redeemFlexibleSaving(String productId, String amount, FlexibleSavingReedemType type) {
+        return executeSync(binanceApiService.redeemFlexibleSaving(productId, amount, type.getName(), BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
+    @Override
+    public FlexibleSaving getOwnedFlexibleSaving(String asset) {
+        return executeSync(binanceApiService.getOwnedFlexibleSaving(asset, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
 }

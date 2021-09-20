@@ -13,6 +13,9 @@ import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.general.ServerTime;
 import com.binance.api.client.domain.market.*;
+import com.binance.api.client.domain.savings.FlexibleSaving;
+import com.binance.api.client.domain.savings.FlexibleSavingProduct;
+import com.binance.api.client.domain.savings.FlexibleSavingResponse;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -330,5 +333,40 @@ public interface BinanceApiService {
             @Query("recvWindow") Long recvWindow,
             @Query("timestamp") Long timestamp);
 
+    // Binance Savings endpoints
+
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @GET("/sapi/v1/lending/daily/product/list")
+    Call<List<FlexibleSavingProduct>> getAllFlexibleSavingsList(
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @POST("/sapi/v1/lending/daily/purchase")
+    Call<FlexibleSavingResponse> purchaseFlexibleSaving(
+            @Query("productId") String productId,
+            @Query("amount") String amount,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @POST("/sapi/v1/lending/daily/redeem")
+    Call<Void> redeemFlexibleSaving(
+            @Query("productId") String productId,
+            @Query("amount") String amount,
+            @Query("type") String type,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @GET("/sapi/v1/lending/daily/token/position")
+    Call<FlexibleSaving> getOwnedFlexibleSaving(
+            @Query("asset") String asset,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
 
 }
