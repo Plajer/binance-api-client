@@ -338,6 +338,8 @@ public interface BinanceApiRestClient {
 
   List<FlexibleSavingProduct> getAllFlexibleSavingsList();
 
+  List<FlexibleSavingProduct> getAllFlexibleSavingsList(int pageNumber);
+
   FlexibleSavingResponse purchaseFlexibleSaving(String productId, String amount);
 
   Void redeemFlexibleSaving(String productId, String amount, FlexibleSavingReedemType type);

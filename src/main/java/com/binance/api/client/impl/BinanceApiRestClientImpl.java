@@ -287,7 +287,12 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
 
     @Override
     public List<FlexibleSavingProduct> getAllFlexibleSavingsList() {
-        return executeSync(binanceApiService.getAllFlexibleSavingsList(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+        return executeSync(binanceApiService.getAllFlexibleSavingsList(100, 1, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
+    @Override
+    public List<FlexibleSavingProduct> getAllFlexibleSavingsList(int pageNumber) {
+        return executeSync(binanceApiService.getAllFlexibleSavingsList(100, pageNumber, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 
     @Override

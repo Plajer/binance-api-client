@@ -338,6 +338,8 @@ public interface BinanceApiService {
     @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
     @GET("/sapi/v1/lending/daily/product/list")
     Call<List<FlexibleSavingProduct>> getAllFlexibleSavingsList(
+            @Query("size") Integer size,
+            @Query("current") Integer current,
             @Query("recvWindow") Long recvWindow,
             @Query("timestamp") Long timestamp
     );
