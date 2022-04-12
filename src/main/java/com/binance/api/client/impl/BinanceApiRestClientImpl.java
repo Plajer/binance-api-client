@@ -8,10 +8,7 @@ import com.binance.api.client.domain.account.request.*;
 import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.market.*;
-import com.binance.api.client.domain.savings.FlexibleSaving;
-import com.binance.api.client.domain.savings.FlexibleSavingProduct;
-import com.binance.api.client.domain.savings.FlexibleSavingReedemType;
-import com.binance.api.client.domain.savings.FlexibleSavingResponse;
+import com.binance.api.client.domain.savings.*;
 import retrofit2.Call;
 
 import java.util.List;
@@ -296,7 +293,7 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     }
 
     @Override
-    public FlexibleSavingResponse purchaseFlexibleSaving(String productId, String amount) {
+    public SavingsPurchaseResponse purchaseFlexibleSaving(String productId, String amount) {
         return executeSync(binanceApiService.purchaseFlexibleSaving(productId, amount, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 
@@ -310,4 +307,24 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return executeSync(binanceApiService.getOwnedFlexibleSaving(asset, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 
+    @Override
+    public List<FixedSavingProduct> getAllFixedSavingsList() {
+        return executeSync(binanceApiService.getAllFixedSavingsList(100, 1, "CUSTOMIZED_FIXED", "SUBSCRIBABLE", BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
+    @Override
+    public List<FixedSavingProduct> getAllFixedSavingsList(int pageNumber) {
+        return executeSync(binanceApiService.getAllFixedSavingsList(100, pageNumber, "CUSTOMIZED_FIXED", "SUBSCRIBABLE", BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+
+    }
+
+    @Override
+    public SavingsPurchaseResponse purchaseFixedSaving(String projectId, String lotsAmount) {
+        return executeSync(binanceApiService.purchaseFixedSavings(projectId, lotsAmount, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
+
+    @Override
+    public List<FixedSaving> getOwnedFixedSavings() {
+	    return executeSync(binanceApiService.getOwnedFixedSavings(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
 }

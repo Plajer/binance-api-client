@@ -11,10 +11,7 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
-import com.binance.api.client.domain.savings.FlexibleSaving;
-import com.binance.api.client.domain.savings.FlexibleSavingProduct;
-import com.binance.api.client.domain.savings.FlexibleSavingReedemType;
-import com.binance.api.client.domain.savings.FlexibleSavingResponse;
+import com.binance.api.client.domain.savings.*;
 
 import java.util.List;
 
@@ -336,14 +333,26 @@ public interface BinanceApiRestClient {
 
   // Savings endpoints
 
+  // Flexible Savings
+
   List<FlexibleSavingProduct> getAllFlexibleSavingsList();
 
   List<FlexibleSavingProduct> getAllFlexibleSavingsList(int pageNumber);
 
-  FlexibleSavingResponse purchaseFlexibleSaving(String productId, String amount);
+  SavingsPurchaseResponse purchaseFlexibleSaving(String productId, String amount);
 
   Void redeemFlexibleSaving(String productId, String amount, FlexibleSavingReedemType type);
 
   FlexibleSaving getOwnedFlexibleSaving(String asset);
+
+  // Fixed Savings
+
+  List<FixedSavingProduct> getAllFixedSavingsList();
+
+  List<FixedSavingProduct> getAllFixedSavingsList(int pageNumber);
+
+  SavingsPurchaseResponse purchaseFixedSaving(String projectId, String lotsAmount);
+
+  List<FixedSaving> getOwnedFixedSavings();
 
 }

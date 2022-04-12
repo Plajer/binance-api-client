@@ -13,9 +13,7 @@ import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.general.ServerTime;
 import com.binance.api.client.domain.market.*;
-import com.binance.api.client.domain.savings.FlexibleSaving;
-import com.binance.api.client.domain.savings.FlexibleSavingProduct;
-import com.binance.api.client.domain.savings.FlexibleSavingResponse;
+import com.binance.api.client.domain.savings.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -334,8 +332,9 @@ public interface BinanceApiService {
             @Query("timestamp") Long timestamp);
 
     // Binance Savings endpoints
+    // Flexible Savings
 
-    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @GET("/sapi/v1/lending/daily/product/list")
     Call<List<FlexibleSavingProduct>> getAllFlexibleSavingsList(
             @Query("size") Integer size,
@@ -344,16 +343,16 @@ public interface BinanceApiService {
             @Query("timestamp") Long timestamp
     );
 
-    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @POST("/sapi/v1/lending/daily/purchase")
-    Call<FlexibleSavingResponse> purchaseFlexibleSaving(
+    Call<SavingsPurchaseResponse> purchaseFlexibleSaving(
             @Query("productId") String productId,
             @Query("amount") String amount,
             @Query("recvWindow") Long recvWindow,
             @Query("timestamp") Long timestamp
     );
 
-    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @POST("/sapi/v1/lending/daily/redeem")
     Call<Void> redeemFlexibleSaving(
             @Query("productId") String productId,
@@ -363,10 +362,39 @@ public interface BinanceApiService {
             @Query("timestamp") Long timestamp
     );
 
-    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @GET("/sapi/v1/lending/daily/token/position")
     Call<FlexibleSaving> getOwnedFlexibleSaving(
             @Query("asset") String asset,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    //Fixed Savings
+
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+    @GET("/sapi/v1/lending/daily/project/list")
+    Call<List<FixedSavingProduct>> getAllFixedSavingsList(
+            @Query("size") Integer size,
+            @Query("current") Integer current,
+            @Query("type") String type,
+            @Query("status") String status,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+    @POST("/sapi/v1/lending/customizedFixed/purchase")
+    Call<SavingsPurchaseResponse> purchaseFixedSavings(
+            @Query("projectId") String projectId,
+            @Query("amount") String amount,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+    @GET("/sapi/v1/lending/project/position/list")
+    Call<List<FixedSaving>> getOwnedFixedSavings(
             @Query("recvWindow") Long recvWindow,
             @Query("timestamp") Long timestamp
     );

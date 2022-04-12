@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Created at 20.09.2021
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FlexibleSavingResponse {
+public class SavingsPurchaseResponse {
 
   private String purchaseId;
 
