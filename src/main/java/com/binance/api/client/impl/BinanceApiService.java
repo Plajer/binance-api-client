@@ -8,6 +8,7 @@ import com.binance.api.client.domain.TimeInForce;
 import com.binance.api.client.domain.account.*;
 import com.binance.api.client.domain.account.request.CancelOrderListResponse;
 import com.binance.api.client.domain.account.request.CancelOrderResponse;
+import com.binance.api.client.domain.account.request.TransferResponse;
 import com.binance.api.client.domain.event.ListenKey;
 import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
@@ -399,15 +400,14 @@ public interface BinanceApiService {
             @Query("timestamp") Long timestamp
     );
 
-    // Binance Sub-Account Endpoints
-    // Universal Transfer (for master account)
+    //Binance Futures Endpoints
+    // Future Account Transfer
     @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
-    @GET("/sapi/v1/sub-account/universalTransfer")
-    Call<UniversalTransferResponse> universalTransfer(
-            @Query("fromAccountType") String fromAccountType,
-            @Query("toAccountType") String toAccountType,
+    @GET("/sapi/v1/futures/transfer")
+    Call<TransferResponse> futureAccountTransfer(
             @Query("asset") String asset,
             @Query("amount") String amount,
+            @Query("type") int transferType,
             @Query("recvWindow") Long recvWindow,
             @Query("timestamp") Long timestamp
     );

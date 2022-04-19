@@ -1,4 +1,4 @@
-package com.binance.api.client.domain.account;
+package com.binance.api.client.domain.account.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -8,10 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Created at 19.04.2022
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UniversalTransferResponse {
+public class TransferResponse {
 
     private String tranId;
-    private String clientTranId;
 
     public String getTranId() {
         return tranId;
@@ -19,13 +18,5 @@ public class UniversalTransferResponse {
 
     public void setTranId(String tranId) {
         this.tranId = tranId;
-    }
-
-    public String getClientTranId() {
-        return clientTranId;
-    }
-
-    public void setClientTranId(String clientTranId) {
-        this.clientTranId = clientTranId;
     }
 }

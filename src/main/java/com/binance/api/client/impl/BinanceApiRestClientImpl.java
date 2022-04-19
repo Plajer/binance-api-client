@@ -329,7 +329,7 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     }
 
     @Override
-    public UniversalTransferResponse universalTransfer(String fromAccountType, String toAccountType, String asset, String amount) {
-        return executeSync(binanceApiService.universalTransfer(fromAccountType, toAccountType, asset, amount, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    public TransferResponse futureAccountTransfer(String asset, String amount, FutureAccountTransferType type) {
+        return executeSync(binanceApiService.futureAccountTransfer(asset, amount, type.getType(), BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
 }
