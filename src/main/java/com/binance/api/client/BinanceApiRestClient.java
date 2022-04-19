@@ -355,4 +355,9 @@ public interface BinanceApiRestClient {
 
   List<FixedSaving> getOwnedFixedSavings();
 
+  // Sub-account endpoints
+
+  // Universal Transfer
+  UniversalTransferResponse universalTransfer(String fromAccountType, String toAccountType, String asset, String amount);
+
 }

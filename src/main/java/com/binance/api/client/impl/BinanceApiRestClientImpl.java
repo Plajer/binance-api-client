@@ -327,4 +327,9 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     public List<FixedSaving> getOwnedFixedSavings() {
 	    return executeSync(binanceApiService.getOwnedFixedSavings(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
     }
+
+    @Override
+    public UniversalTransferResponse universalTransfer(String fromAccountType, String toAccountType, String asset, String amount) {
+        return executeSync(binanceApiService.universalTransfer(fromAccountType, toAccountType, asset, amount, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
 }

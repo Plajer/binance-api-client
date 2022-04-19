@@ -373,7 +373,7 @@ public interface BinanceApiService {
     //Fixed Savings
 
     @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
-    @GET("/sapi/v1/lending/daily/project/list")
+    @GET("/sapi/v1/lending/project/list")
     Call<List<FixedSavingProduct>> getAllFixedSavingsList(
             @Query("size") Integer size,
             @Query("current") Integer current,
@@ -395,6 +395,19 @@ public interface BinanceApiService {
     @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @GET("/sapi/v1/lending/project/position/list")
     Call<List<FixedSaving>> getOwnedFixedSavings(
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp
+    );
+
+    // Binance Sub-Account Endpoints
+    // Universal Transfer (for master account)
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+    @GET("/sapi/v1/sub-account/universalTransfer")
+    Call<UniversalTransferResponse> universalTransfer(
+            @Query("fromAccountType") String fromAccountType,
+            @Query("toAccountType") String toAccountType,
+            @Query("asset") String asset,
+            @Query("amount") String amount,
             @Query("recvWindow") Long recvWindow,
             @Query("timestamp") Long timestamp
     );
